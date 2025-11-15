@@ -1,0 +1,1650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StyleHub - Modern Clothing Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        button {
+            cursor: pointer;
+            border: none;
+            outline: none;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        .top-bar {
+            background-color: #1a1a2e;
+            color: white;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+        
+        .top-bar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .promo-text {
+            font-weight: bold;
+            color: #ff6b6b;
+        }
+        
+        .top-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .top-links a {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.3s;
+        }
+        
+        .top-links a:hover {
+            color: #ff6b6b;
+        }
+        
+        .main-header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1a1a2e;
+        }
+        
+        .logo span {
+            color: #ff6b6b;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .nav-links a {
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: #ff6b6b;
+        }
+        
+        .nav-links a.active {
+            color: #ff6b6b;
+        }
+        
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #ff6b6b;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: #f5f5f5;
+            border-radius: 25px;
+            padding: 8px 15px;
+            width: 300px;
+        }
+        
+        .search-bar input {
+            background: transparent;
+            border: none;
+            outline: none;
+            width: 100%;
+            margin-left: 8px;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #1a1a2e;
+            color: #1a1a2e;
+        }
+        
+        .btn-outline:hover {
+            background: #1a1a2e;
+            color: white;
+        }
+        
+        .btn-primary {
+            background: #ff6b6b;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #ff5252;
+        }
+        
+        .cart-icon {
+            position: relative;
+            font-size: 20px;
+            color: #1a1a2e;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ff6b6b;
+            color: white;
+            font-size: 12px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(26,26,46,0.8), rgba(26,26,46,0.8)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        /* Categories Section */
+        .section-title {
+            text-align: center;
+            margin: 50px 0 30px;
+            font-size: 32px;
+            color: #1a1a2e;
+        }
+        
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+        
+        .category-card {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            position: relative;
+            height: 200px;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .category-image {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .category-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        /* Products Section */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-image {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .product-info {
+            padding: 15px;
+        }
+        
+        .product-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .product-price {
+            color: #ff6b6b;
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 14px;
+        }
+        
+        /* Features Section */
+        .features {
+            background: #1a1a2e;
+            color: white;
+            padding: 60px 0;
+            margin-top: 50px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            color: #ff6b6b;
+        }
+        
+        .feature-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #0d0d1a;
+            color: #aaa;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #ff6b6b;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: #333;
+            border-radius: 50%;
+            transition: background 0.3s;
+        }
+        
+        .social-links a:hover {
+            background: #ff6b6b;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            font-size: 14px;
+        }
+        
+        /* Authentication Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 10px;
+            width: 400px;
+            max-width: 90%;
+            padding: 30px;
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        
+        .modal-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #1a1a2e;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .form-footer a {
+            color: #ff6b6b;
+            font-weight: 500;
+        }
+        
+        /* Page-specific styles */
+        .page {
+            display: none;
+        }
+        
+        .active-page {
+            display: block;
+        }
+        
+        /* Cart Page */
+        .cart-items {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .cart-item {
+            display: flex;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        
+        .cart-item-image {
+            width: 100px;
+            height: 100px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 5px;
+            margin-right: 15px;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+        }
+        
+        .cart-item-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .cart-item-price {
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+        
+        .cart-item-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .cart-summary {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .summary-total {
+            font-weight: bold;
+            font-size: 18px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+        
+        /* Product Details */
+        .product-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .product-gallery {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-main-image {
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .product-thumbnails {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .product-thumbnail {
+            width: 70px;
+            height: 70px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        
+        .product-thumbnail.active {
+            border-color: #ff6b6b;
+        }
+        
+        .product-info-detail h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .product-price-detail {
+            font-size: 24px;
+            color: #ff6b6b;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .product-description {
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        
+        .size-selector {
+            margin-bottom: 20px;
+        }
+        
+        .size-options {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .size-option {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .size-option.active {
+            background: #1a1a2e;
+            color: white;
+            border-color: #1a1a2e;
+        }
+        
+        .product-actions-detail {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .btn-large {
+            padding: 12px 30px;
+            font-size: 16px;
+        }
+        
+        /* Checkout Page */
+        .checkout-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        .checkout-form {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+        }
+        
+        .form-section-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        /* Order Tracking */
+        .tracking-container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .tracking-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            margin: 40px 0;
+        }
+        
+        .tracking-steps::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #eee;
+            z-index: 1;
+        }
+        
+        .tracking-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .step-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        
+        .step-icon.active {
+            background: #ff6b6b;
+            color: white;
+        }
+        
+        .step-label {
+            font-size: 14px;
+        }
+        
+        /* User Profile */
+        .profile-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 30px;
+        }
+        
+        .profile-sidebar {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .profile-menu {
+            margin-top: 20px;
+        }
+        
+        .profile-menu li {
+            margin-bottom: 10px;
+        }
+        
+        .profile-menu a {
+            display: block;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        
+        .profile-menu a.active, .profile-menu a:hover {
+            background: #f5f5f5;
+            color: #ff6b6b;
+        }
+        
+        .profile-content {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* Admin Panel */
+        .admin-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 30px;
+        }
+        
+        .admin-sidebar {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .admin-content {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .admin-table th, .admin-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .admin-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+        
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-completed {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .status-shipped {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .search-bar {
+                width: 100%;
+                margin: 10px 0;
+            }
+            
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .top-bar-content {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            .product-detail {
+                grid-template-columns: 1fr;
+            }
+            
+            .checkout-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-container, .admin-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .tracking-steps {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .tracking-steps::before {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container">
+            <div class="top-bar-content">
+                <div class="promo-text">SUMMER SALE: Up to 50% OFF on selected items!</div>
+                <div class="top-links">
+                    <a href="#"><i class="fa-solid fa-mobile-screen"></i> Get App</a>
+                    <a href="#"><i class="fa-solid fa-location-dot"></i> Store Locator</a>
+                    <a href="#"><i class="fa-solid fa-truck"></i> Track Order</a>
+                    <a href="#"><i class="fa-solid fa-gifts"></i> Gift Cards</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Style<span>Hub</span></div>
+                <nav class="nav-links">
+                    <a href="#" class="nav-link active" data-page="home">Home</a>
+                    <a href="#" class="nav-link" data-page="products">Products</a>
+                    <a href="#" class="nav-link" data-page="categories">Categories</a>
+                    <a href="#" class="nav-link" data-page="new-arrivals">New Arrivals</a>
+                    <a href="#" class="nav-link" data-page="sale">Sale</a>
+                </nav>
+                <div class="header-actions">
+                    <div class="search-bar">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Search for products...">
+                    </div>
+                    <div class="auth-buttons">
+                        <button class="btn btn-outline" id="login-btn">Login</button>
+                        <button class="btn btn-primary" id="signup-btn">Sign Up</button>
+                    </div>
+                    <a href="#" class="cart-icon" data-page="cart">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span class="cart-count">3</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Pages -->
+    <main>
+        <!-- Home Page -->
+        <section id="home" class="page active-page">
+            <!-- Hero Section -->
+            <div class="hero">
+                <div class="container">
+                    <h1>Summer Collection 2024</h1>
+                    <p>Discover the latest trends in fashion with our exclusive summer collection. Comfort, style, and quality in one place.</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary">Shop Now</button>
+                        <button class="btn btn-outline" style="color: white; border-color: white;">Explore</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Categories Section -->
+            <div class="container">
+                <h2 class="section-title">Shop By Category</h2>
+                <div class="categories">
+                    <div class="category-card">
+                        <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1496747611176-843222e1e57c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1352&q=80');"></div>
+                        <div class="category-overlay">
+                            <h3>Men's Fashion</h3>
+                        </div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');"></div>
+                        <div class="category-overlay">
+                            <h3>Women's Fashion</h3>
+                        </div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1505022610485-0249ba5b3675?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');"></div>
+                        <div class="category-overlay">
+                            <h3>Accessories</h3>
+                        </div>
+                    </div>
+                    <div class="category-card">
+                        <div class="category-image" style="background-image: url('https://images.unsplash.com/photo-1558769132-cb25c5c1fae5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');"></div>
+                        <div class="category-overlay">
+                            <h3>Footwear</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Featured Products -->
+            <div class="container">
+                <h2 class="section-title">Featured Products</h2>
+                <div class="products">
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');"></div>
+                        <div class="product-info">
+                            <div class="product-title">Classic White T-Shirt</div>
+                            <div class="product-price">$24.99</div>
+                            <div class="product-actions">
+                                <button class="btn btn-sm btn-primary">Add to Cart</button>
+                                <button class="btn btn-sm btn-outline">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');"></div>
+                        <div class="product-info">
+                            <div class="product-title">Denim Jacket</div>
+                            <div class="product-price">$59.99</div>
+                            <div class="product-actions">
+                                <button class="btn btn-sm btn-primary">Add to Cart</button>
+                                <button class="btn btn-sm btn-outline">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1544441893-675973e31985?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');"></div>
+                        <div class="product-info">
+                            <div class="product-title">Summer Dress</div>
+                            <div class="product-price">$39.99</div>
+                            <div class="product-actions">
+                                <button class="btn btn-sm btn-primary">Add to Cart</button>
+                                <button class="btn btn-sm btn-outline">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1549298916-b41d501d3772?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');"></div>
+                        <div class="product-info">
+                            <div class="product-title">Running Shoes</div>
+                            <div class="product-price">$79.99</div>
+                            <div class="product-actions">
+                                <button class="btn btn-sm btn-primary">Add to Cart</button>
+                                <button class="btn btn-sm btn-outline">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="features">
+                <div class="container">
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fa-solid fa-truck-fast"></i>
+                            </div>
+                            <h3 class="feature-title">Free Shipping</h3>
+                            <p>Free shipping on orders over $50</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fa-solid fa-rotate-left"></i>
+                            </div>
+                            <h3 class="feature-title">Easy Returns</h3>
+                            <p>30-day return policy</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fa-solid fa-lock"></i>
+                            </div>
+                            <h3 class="feature-title">Secure Payment</h3>
+                            <p>Your payment information is safe</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fa-solid fa-headset"></i>
+                            </div>
+                            <h3 class="feature-title">24/7 Support</h3>
+                            <p>We're here to help anytime</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Page -->
+        <section id="products" class="page">
+            <div class="container">
+                <h2 class="section-title">All Products</h2>
+                <div class="products">
+                    <!-- Product cards will be dynamically loaded -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Details Page -->
+        <section id="product-details" class="page">
+            <div class="container">
+                <div class="product-detail">
+                    <div class="product-gallery">
+                        <div class="product-main-image" style="background-image: url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');"></div>
+                        <div class="product-thumbnails">
+                            <div class="product-thumbnail active" style="background-image: url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');"></div>
+                            <div class="product-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');"></div>
+                            <div class="product-thumbnail" style="background-image: url('https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');"></div>
+                        </div>
+                    </div>
+                    <div class="product-info-detail">
+                        <h1>Classic White T-Shirt</h1>
+                        <div class="product-price-detail">$24.99</div>
+                        <div class="product-description">
+                            <p>Our classic white t-shirt is made from 100% premium cotton for ultimate comfort. Perfect for everyday wear, this versatile piece can be dressed up or down to suit any occasion.</p>
+                            <ul>
+                                <li>100% Premium Cotton</li>
+                                <li>Machine Washable</li>
+                                <li>Available in multiple sizes</li>
+                                <li>Regular fit</li>
+                            </ul>
+                        </div>
+                        <div class="size-selector">
+                            <label>Size:</label>
+                            <div class="size-options">
+                                <div class="size-option active">S</div>
+                                <div class="size-option">M</div>
+                                <div class="size-option">L</div>
+                                <div class="size-option">XL</div>
+                            </div>
+                        </div>
+                        <div class="product-actions-detail">
+                            <button class="btn btn-primary btn-large">Add to Cart</button>
+                            <button class="btn btn-outline btn-large">Add to Wishlist</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cart Page -->
+        <section id="cart" class="page">
+            <div class="container">
+                <h2 class="section-title">Your Shopping Cart</h2>
+                <div class="cart-items">
+                    <!-- Cart items will be dynamically loaded -->
+                </div>
+                <div class="cart-summary">
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span>$149.97</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Shipping:</span>
+                        <span>Free</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Tax:</span>
+                        <span>$12.00</span>
+                    </div>
+                    <div class="summary-row summary-total">
+                        <span>Total:</span>
+                        <span>$161.97</span>
+                    </div>
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 20px;">Proceed to Checkout</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Checkout Page -->
+        <section id="checkout" class="page">
+            <div class="container">
+                <h2 class="section-title">Checkout</h2>
+                <div class="checkout-container">
+                    <div class="checkout-form">
+                        <div class="form-section">
+                            <h3 class="form-section-title">Shipping Information</h3>
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" class="form-control" placeholder="Enter your full name">
+                            </div>
+                            <div class="form-group">
+                                <label>Address</label>
+                                <input type="text" class="form-control" placeholder="Enter your address">
+                            </div>
+                            <div class="form-group">
+                                <label>City</label>
+                                <input type="text" class="form-control" placeholder="Enter your city">
+                            </div>
+                            <div class="form-group">
+                                <label>Zip Code</label>
+                                <input type="text" class="form-control" placeholder="Enter your zip code">
+                            </div>
+                        </div>
+                        <div class="form-section">
+                            <h3 class="form-section-title">Payment Method</h3>
+                            <div class="form-group">
+                                <label>Payment Option</label>
+                                <select class="form-control">
+                                    <option>Cash on Delivery</option>
+                                    <option>Credit Card</option>
+                                    <option>PayPal</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" style="width: 100%;">Place Order</button>
+                    </div>
+                    <div class="order-summary">
+                        <div class="cart-summary">
+                            <h3>Order Summary</h3>
+                            <div class="summary-row">
+                                <span>Items (3):</span>
+                                <span>$149.97</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Shipping:</span>
+                                <span>Free</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Tax:</span>
+                                <span>$12.00</span>
+                            </div>
+                            <div class="summary-row summary-total">
+                                <span>Total:</span>
+                                <span>$161.97</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Order Tracking Page -->
+        <section id="order-tracking" class="page">
+            <div class="container">
+                <h2 class="section-title">Track Your Order</h2>
+                <div class="tracking-container">
+                    <div class="form-group">
+                        <label>Order Number</label>
+                        <input type="text" class="form-control" placeholder="Enter your order number">
+                    </div>
+                    <button class="btn btn-primary">Track Order</button>
+                    
+                    <div class="tracking-steps">
+                        <div class="tracking-step">
+                            <div class="step-icon active"><i class="fa-solid fa-check"></i></div>
+                            <div class="step-label">Order Placed</div>
+                        </div>
+                        <div class="tracking-step">
+                            <div class="step-icon active"><i class="fa-solid fa-check"></i></div>
+                            <div class="step-label">Processing</div>
+                        </div>
+                        <div class="tracking-step">
+                            <div class="step-icon"><i class="fa-solid fa-box"></i></div>
+                            <div class="step-label">Shipped</div>
+                        </div>
+                        <div class="tracking-step">
+                            <div class="step-icon"><i class="fa-solid fa-truck"></i></div>
+                            <div class="step-label">Out for Delivery</div>
+                        </div>
+                        <div class="tracking-step">
+                            <div class="step-icon"><i class="fa-solid fa-home"></i></div>
+                            <div class="step-label">Delivered</div>
+                        </div>
+                    </div>
+                    
+                    <div class="order-details">
+                        <h3>Order Details</h3>
+                        <p><strong>Order Number:</strong> #ORD-12345</p>
+                        <p><strong>Order Date:</strong> June 15, 2024</p>
+                        <p><strong>Estimated Delivery:</strong> June 20, 2024</p>
+                        <p><strong>Shipping Address:</strong> 123 Main St, Anytown, USA 12345</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- User Profile Page -->
+        <section id="user-profile" class="page">
+            <div class="container">
+                <h2 class="section-title">My Profile</h2>
+                <div class="profile-container">
+                    <div class="profile-sidebar">
+                        <div class="user-info">
+                            <div class="user-avatar">
+                                <i class="fa-solid fa-user-circle" style="font-size: 60px; color: #ddd;"></i>
+                            </div>
+                            <h3>John Doe</h3>
+                            <p>john.doe@example.com</p>
+                        </div>
+                        <ul class="profile-menu">
+                            <li><a href="#" class="active">Personal Information</a></li>
+                            <li><a href="#">Order History</a></li>
+                            <li><a href="#">Address Book</a></li>
+                            <li><a href="#">Payment Methods</a></li>
+                            <li><a href="#">Wishlist</a></li>
+                            <li><a href="#">Settings</a></li>
+                        </ul>
+                    </div>
+                    <div class="profile-content">
+                        <h3>Personal Information</h3>
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" class="form-control" value="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" class="form-control" value="john.doe@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" class="form-control" value="+1 (555) 123-4567">
+                        </div>
+                        <div class="form-group">
+                            <label>Date of Birth</label>
+                            <input type="date" class="form-control" value="1990-01-01">
+                        </div>
+                        <button class="btn btn-primary">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Panel Page -->
+        <section id="admin-panel" class="page">
+            <div class="container">
+                <h2 class="section-title">Admin Dashboard</h2>
+                <div class="admin-container">
+                    <div class="admin-sidebar">
+                        <ul class="profile-menu">
+                            <li><a href="#" class="active">Dashboard</a></li>
+                            <li><a href="#">Products</a></li>
+                            <li><a href="#">Categories</a></li>
+                            <li><a href="#">Orders</a></li>
+                            <li><a href="#">Customers</a></li>
+                            <li><a href="#">Analytics</a></li>
+                            <li><a href="#">Settings</a></li>
+                        </ul>
+                    </div>
+                    <div class="admin-content">
+                        <h3>Recent Orders</h3>
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#ORD-12345</td>
+                                    <td>John Doe</td>
+                                    <td>June 15, 2024</td>
+                                    <td>$161.97</td>
+                                    <td><span class="status-badge status-pending">Pending</span></td>
+                                    <td><button class="btn btn-sm btn-primary">View</button></td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD-12344</td>
+                                    <td>Jane Smith</td>
+                                    <td>June 14, 2024</td>
+                                    <td>$89.99</td>
+                                    <td><span class="status-badge status-shipped">Shipped</span></td>
+                                    <td><button class="btn btn-sm btn-primary">View</button></td>
+                                </tr>
+                                <tr>
+                                    <td>#ORD-12343</td>
+                                    <td>Robert Johnson</td>
+                                    <td>June 13, 2024</td>
+                                    <td>$245.50</td>
+                                    <td><span class="status-badge status-completed">Delivered</span></td>
+                                    <td><button class="btn btn-sm btn-primary">View</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Shop</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Men's Clothing</a></li>
+                        <li><a href="#">Women's Clothing</a></li>
+                        <li><a href="#">Accessories</a></li>
+                        <li><a href="#">Footwear</a></li>
+                        <li><a href="#">New Arrivals</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Customer Service</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Shipping Policy</a></li>
+                        <li><a href="#">Returns & Exchanges</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>About Us</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Our Story</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Sustainability</a></li>
+                        <li><a href="#">Press</a></li>
+                        <li><a href="#">Affiliates</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Stay Connected</h3>
+                    <p>Subscribe to our newsletter for the latest updates and offers</p>
+                    <div class="search-bar" style="width: 100%; margin: 15px 0;">
+                        <input type="text" placeholder="Your email address">
+                        <button class="btn btn-primary btn-sm">Subscribe</button>
+                    </div>
+                    <div class="social-links">
+                        <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 StyleHub. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title">Login</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" placeholder="Enter your password">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
+                <div class="form-footer">
+                    <p>Don't have an account? <a href="#" id="show-signup">Sign up</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal" id="signup-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 class="modal-title">Create Account</h2>
+            <form id="signup-form">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" class="form-control" placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" placeholder="Create a password">
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" class="form-control" placeholder="Confirm your password">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Sign Up</button>
+                <div class="form-footer">
+                    <p>Already have an account? <a href="#" id="show-login">Login</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Page Navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation links
+            const navLinks = document.querySelectorAll('.nav-link');
+            const pages = document.querySelectorAll('.page');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetPage = this.getAttribute('data-page');
+                    
+                    // Update active nav link
+                    navLinks.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show target page
+                    pages.forEach(page => {
+                        page.classList.remove('active-page');
+                        if (page.id === targetPage) {
+                            page.classList.add('active-page');
+                        }
+                    });
+                });
+            });
+            
+            // Cart icon navigation
+            document.querySelector('.cart-icon').addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Update active nav link
+                navLinks.forEach(nav => nav.classList.remove('active'));
+                
+                // Show cart page
+                pages.forEach(page => {
+                    page.classList.remove('active-page');
+                    if (page.id === 'cart') {
+                        page.classList.add('active-page');
+                    }
+                });
+            });
+            
+            // Modal functionality
+            const loginBtn = document.getElementById('login-btn');
+            const signupBtn = document.getElementById('signup-btn');
+            const loginModal = document.getElementById('login-modal');
+            const signupModal = document.getElementById('signup-modal');
+            const closeButtons = document.querySelectorAll('.close-modal');
+            const showSignup = document.getElementById('show-signup');
+            const showLogin = document.getElementById('show-login');
+            
+            loginBtn.addEventListener('click', function() {
+                loginModal.style.display = 'flex';
+            });
+            
+            signupBtn.addEventListener('click', function() {
+                signupModal.style.display = 'flex';
+            });
+            
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    loginModal.style.display = 'none';
+                    signupModal.style.display = 'none';
+                });
+            });
+            
+            showSignup.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginModal.style.display = 'none';
+                signupModal.style.display = 'flex';
+            });
+            
+            showLogin.addEventListener('click', function(e) {
+                e.preventDefault();
+                signupModal.style.display = 'none';
+                loginModal.style.display = 'flex';
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target === loginModal) {
+                    loginModal.style.display = 'none';
+                }
+                if (e.target === signupModal) {
+                    signupModal.style.display = 'none';
+                }
+            });
+            
+            // Product thumbnail selection
+            const thumbnails = document.querySelectorAll('.product-thumbnail');
+            const mainImage = document.querySelector('.product-main-image');
+            
+            thumbnails.forEach(thumbnail => {
+                thumbnail.addEventListener('click', function() {
+                    thumbnails.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    mainImage.style.backgroundImage = this.style.backgroundImage;
+                });
+            });
+            
+            // Size selection
+            const sizeOptions = document.querySelectorAll('.size-option');
+            
+            sizeOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    sizeOptions.forEach(o => o.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Form submissions
+            document.getElementById('login-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Login functionality would be implemented here with Firebase Auth');
+                loginModal.style.display = 'none';
+            });
+            
+            document.getElementById('signup-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Signup functionality would be implemented here with Firebase Auth');
+                signupModal.style.display = 'none';
+            });
+        });
+    </script>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "your-api-key",
+            authDomain: "your-project.firebaseapp.com",
+            projectId: "your-project-id",
+            storageBucket: "your-project.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "your-app-id"
+        };
+        
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        
+        // Firebase functionality would be implemented here
+        console.log("Firebase initialized");
+    </script>
+</body>
+</html>

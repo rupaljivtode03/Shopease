@@ -1,0 +1,299 @@
+*{
+    border: border-box;
+    font-family:Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+
+
+.navbar{
+    height: 40px;
+    background-image: url("hero.jpg");
+    background-size: cover;
+   
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    
+}
+.nav1{
+     font-weight: 500;
+     animation: bhumi 3s ease-in-out 0s infinite normal;
+}
+
+@keyframes bhumi {
+    /* Opacitymeans how transparent an element is.  
+1	Fully visible (100%)
+0	Fully invisible (0%)
+0.5	Half transparent (50%)
+ */
+      
+    0%   {transform:translateY(100%); opacity: 0;}    
+    50%{transform:translateY(0) ; opacity: 1;}   
+    
+    100%{transform: translateY(-100%); opacity: 0;}
+
+
+  
+}
+.border:hover{
+    color:white ;
+}
+.part2{
+    display: flex;
+    justify-content: space-evenly;
+    gap: 15px; 
+  
+}
+
+/* header2 */
+.header2{
+    height: 66px;
+    width: 100%;
+    background-color: rgb(255, 255, 255); 
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-bottom: 1px solid rgb(214, 214, 214);
+}
+
+.headlist {
+  display: flex;
+  align-items: center;        /* vertical alignment */
+  justify-content: flex-start;
+  gap: 10px;                  /* optional: space between logo and list */
+
+
+}
+
+
+.logo{
+    display:block;  
+    height: 30PX;
+    width: 80PX;
+    background-image: url(NYKAA.NS.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    
+}
+
+ul{
+    list-style: none;
+    margin: 0;
+  padding: 0;
+}
+.list{
+    display: flex;
+    gap: 22px;
+    font-size: 15px;
+
+}
+.list:hover{
+    color: rgb(228, 50, 145);
+} 
+
+.fa-solid fa-magnifying-glass{
+    height: 290px;
+    width: 30px;
+    background-color: rgba(151, 151, 151, 0.1);
+}
+.searchbar{
+    display: flex;
+    justify-content: space-evenly;
+    gap: 15px;
+    align-items: center;
+    
+}
+
+
+
+.fa-solid.fa-magnifying-glass {
+  font-size: 20px; /* preferred for icons */
+
+}
+
+
+input{
+    width: 250px;
+    height:40px ;
+    background-color: rgba(151, 151, 151, 0.1);
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+button{
+    background-color: #e80087;
+    color: white;
+    height: 40px;
+    width: 95px;
+    font-size: 15px;
+    border: none;
+     border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+button:hover{
+    background-color: #f80f97;
+}
+.fa-solid.fa-bag-shopping{
+    font-size: 25px;
+    align-items: center;
+}
+
+/* header3 */
+.header3{
+    height: 50px;
+    width: 100%;
+    background-color: #ffffff;
+    list-style: none;
+    color: #03021a99;
+    align-content: center;
+    border-bottom: 1px solid rgb(230, 227, 227);
+    box-shadow: 0 1px 2px grey;
+}
+a{
+    text-decoration: none;
+    color: #03021a99;
+}
+a:hover{
+    color: #e80087;
+    
+}
+
+.he3{
+    display:flex;
+    justify-content: center;
+    font-size: 15px;
+    gap: 29px;
+  
+}
+.shop{
+    display: flex;
+    /* flex-wrap: row; */
+    overflow-x: auto;          /* allows horizontal scroll */
+  gap: 15px;
+    justify-content: space-evenly;
+    
+}
+
+
+.box{
+   border: 2px solid transparent;
+   
+   width: 530px;
+   margin-top: 7px;
+  
+}
+.one{
+     margin-left: 75px;
+}
+
+
+
+.img {
+  width: 445px;
+  height: 439px;
+  background-size: cover;
+  background-repeat: repeat;
+  background-position: center;
+  
+   border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+/* banner */
+.banner{
+    
+     margin-top: 15px;
+    height: 120px;
+    width: 100%;
+    background-image: url(banner.avif);
+     background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    
+}
+
+.banner2{
+   
+    margin-top: 15px;
+    height: 120px;
+    width: 100%;
+    background-image: url(banner2.avif);
+     background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+   
+}
+
+/* gif */
+
+.gif{
+    margin-left: 75px;
+     margin-top: 15px;
+    
+}
+.gif2{
+    font-size: 16px;
+   
+}
+.giff{
+   
+    height: 350px;
+    width: 100%;
+    background-image: url("gif.gif");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 2px solid transparent;
+
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+
+}
+
+.extra{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    height: 120px;
+   width: 97%;
+    background-image: url(extra.avif);
+    background-size: contain;
+    background-repeat: no-repeat;
+   
+}
+
+
+.dis{
+    margin-left: 30px;
+    margin-bottom: 25px;
+    height: 125px;
+    
+    align-content: center;
+    display: block;
+    color:grey ;
+    background-color: rgb(255, 255, 255);
+        unicode-bidi: isolate;
+            cursor: pointer;
+            text-align: center;
+
+    border: 1px solid  rgb(225, 218, 218);
+    
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15); 
+
+ border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+
+}
+
