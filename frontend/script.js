@@ -145,3 +145,27 @@
   });
 
 })();
+
+// Backend API integration (using fetch directly to avoid module issues)
+const API_BASE = "http://localhost:5000/api";
+
+// Fetch products from backend
+async function loadProductsFromBackend() {
+  try {
+    const response = await fetch(`${API_BASE}/products`);
+    const data = await response.json();
+    console.log("Backend products:", data);
+    return data.products || [];
+  } catch (error) {
+    console.error("Error connecting to backend:", error);
+    return [];
+  }
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', async () => {
+  const products = await loadProductsFromBackend();
+  if (products.length > 0) {
+    console.log(`Loaded ${products.length} products from backend`);
+  }
+});
