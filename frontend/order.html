@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Place Order</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #f7f7f7; margin: 0; padding: 0; }
+    .container { max-width: 500px; margin: 40px auto; background: #fff; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); padding: 20px; }
+    h1 { text-align: center; color: #e80087; }
+    img { max-width: 100%; border-radius: 12px; margin: 10px 0; }
+    .product-info { text-align: center; margin-bottom: 20px; }
+    .product-info h2 { margin: 5px 0; font-size: 22px; }
+    .product-info p { margin: 5px 0; font-weight: bold; color: #e80087; }
+
+    .address-section label { display: block; margin: 10px 0 4px; font-weight: 600; }
+    .address-section input, .address-section textarea { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd; font-size: 14px; }
+    .address-section textarea { resize: vertical; }
+
+    button { width: 100%; padding: 12px; font-size: 16px; background: #e80087; color: #fff; border: none; border-radius: 8px; cursor: pointer; }
+    button:hover { background: #ff0fa3; }
+
+    /* Popup modal */
+    .popup { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.6); justify-content:center; align-items:center; }
+    .popup-content { background:#fff; padding: 30px; border-radius:12px; text-align:center; max-width:400px; box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+    .popup-content h2 { color:#e80087; margin-bottom:10px; }
+    .popup-content p { margin-bottom:20px; }
+    .close-btn { padding:8px 16px; background:#e80087; color:#fff; border:none; border-radius:8px; cursor:pointer; }
+    .close-btn:hover { background:#ff0fa3; }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Checkout</h1>
+
+    <!-- Product info -->
+    <div class="product-info">
+      <img id="productImg" src="" alt="Product">
+      <h2 id="productName">Product Name</h2>
+      <p id="productPrice">Price: ₹0</p>
+    </div>
+
+    <!-- Address form -->
+    <div class="address-section">
+      <label for="customerName">Full Name</label>
+      <input type="text" id="customerName" placeholder="Enter your name">
+
+      <label for="phone">Phone Number</label>
+      <input type="text" id="phone" placeholder="Enter your phone number">
+
+      <label for="address">Address</label>
+      <textarea id="address" placeholder="Enter your full address"></textarea>
+    </div>
+
+    <button id="confirmBtn">Confirm Order (Cash on Delivery)</button>
+  </div>
+
+  <!-- Popup -->
+  <div class="popup" id="orderPopup">
+    <div class="popup-content">
+      <h2>Order Placed!</h2>
+      <p>Your order has been confirmed. (Cash on Delivery ONLY)</p>
+      <p>It will be shipped and delivered in 4 days.</p>
+      <button class="close-btn" id="closePopup">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // Get product data from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const name = urlParams.get('name');
+    const price = urlParams.get('price');
+    const img = urlParams.get('img');
+
+    document.getElementById('productName').innerText = name || "Product Name";
+    document.getElementById('productPrice').innerText = `Price: ₹${price || 0}`;
+    document.getElementById('productImg').src = img || "top.jpg";
+
+    const popup = document.getElementById('orderPopup');
+    const confirmBtn = document.getElementById('confirmBtn');
+    const closeBtn = document.getElementById('closePopup');
+
+    confirmBtn.addEventListener('click', () => {
+      const customerName = document.getElementById('customerName').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const address = document.getElementById('address').value.trim();
+
+      if(!customerName || !phone || !address){
+        alert("Please fill all address fields!");
+        return;
+      }
+
+      popup.style.display = 'flex';
+      confirmBtn.disabled = true;
+    });
+
+    closeBtn.addEventListener('click', () => {
+      popup.style.display = 'none';
+      // optionally redirect to index page after closing
+      window.location.href = "index.html";
+    });
+
+    // Close popup on clicking outside
+    window.addEventListener('click', (e) => {
+      if(e.target === popup) {
+        popup.style.display = 'none';
+        window.location.href = "index.html";
+      }
+    });
+  </script>
+
+</body>
+</html>

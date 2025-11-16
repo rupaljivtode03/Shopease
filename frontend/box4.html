@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Western Collection</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .product-card {
+      background: #fff;
+      border-radius: 16px;
+      border: 1px solid #ddd;
+      overflow: hidden;
+      text-decoration: none;
+      color: #000;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      padding-bottom:15px;
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    .product-img {
+      width: 100%;
+      aspect-ratio: 1 / 1.2;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: #fff;
+    }
+
+    .product-info {
+      padding: 14px;
+      text-align: center;
+    }
+
+    .product-info h3 {
+      margin: 8px 0;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .product-info p {
+      color: #e80087;
+      font-weight: bold;
+      font-size: 17px;
+    }
+
+    .details {
+      font-size: 14px;
+      color: #444;
+      margin-bottom: 8px;
+    }
+
+    .btn-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .btn-row button {
+      background: #e80087;
+      color: white;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .btn-row button:hover {
+      background: #ff0fa3;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="index.html" style="margin-left:20px">← Back</a>
+  <h1 style="text-align:center; margin:20px 0;">Western</h1>
+
+  <div class="products-grid">
+
+    <!-- PRODUCT 1 -->
+    <div class="product-card">
+      <div class="product-img" style="background-image:url('d2.jpg');"></div>
+      <div class="product-info">
+        <h3>Denim</h3>
+        <p>₹699</p>
+        <div class="details">Sizes: S, M, L, XL</div>
+        <div class="details">Comfort fit</div>
+        <div class="btn-row">
+          <a href="order.html?name=Denim&price=699&img=d2.jpg"><button>Order</button></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT 2 -->
+    <div class="product-card">
+      <div class="product-img" style="background-image:url('w22.jpg');"></div>
+      <div class="product-info">
+        <h3>Frock</h3>
+        <p>₹999</p>
+        <div class="details">Sizes: 28, 30, 32, 34</div>
+        <div class="details">Premium</div>
+        <div class="btn-row">
+          <a href="order.html?name=Frock&price=999&img=w22.jpg"><button>Order</button></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT 3 -->
+    <div class="product-card">
+      <div class="product-img" style="background-image:url('w11.jpg');"></div>
+      <div class="product-info">
+        <h3>Cordo</h3>
+        <p>₹1199</p>
+        <div class="details">Sizes: S, M, L</div>
+        <div class="details">Soft fabric daily wear</div>
+        <div class="btn-row">
+          <a href="order.html?name=Cordo&price=1199&img=w11.jpg"><button>Order</button></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT 4 -->
+    <div class="product-card">
+      <div class="product-img" style="background-image:url('d1.jpg');"></div>
+      <div class="product-info">
+        <h3>Cute White Dress</h3>
+        <p>₹999</p>
+        <div class="details">Sizes: 28–36</div>
+        <div class="details">Slim fit soft</div>
+        <div class="btn-row">
+          <a href="order.html?name=Cute%20White%20Dress&price=999&img=d1.jpg"><button>Order</button></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT 5 -->
+    <div class="product-card">
+      <div class="product-img" style="background-image:url('w33.jpg');"></div>
+      <div class="product-info">
+        <h3>Stylish</h3>
+        <p>₹799</p>
+        <div class="details">Sizes: XS, S, M</div>
+        <div class="details">Trendy stylish</div>
+        <div class="btn-row">
+          <a href="order.html?name=Stylish&price=799&img=w33.jpg"><button>Order</button></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT 6 -->
+    <div class="product-card">
+      <div class="product-img" style="background-image:url('d3.jpg');"></div>
+      <div class="product-info">
+        <h3>Night Wear</h3>
+        <p>₹899</p>
+        <div class="details">Sizes: 28–34</div>
+        <div class="details">Comfort wear saree</div>
+        <div class="btn-row">
+          <a href="order.html?name=Night%20Wear&price=899&img=d3.jpg"><button>Order</button></a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Help — Nykaa Demo Shop</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+  <style>
+    :root{--accent:#e80087;--dark:#121212;--muted:#666;--card:#fff;--glass:rgba(232,0,135,0.06);--radius:14px}
+    *{box-sizing:border-box}
+    body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial; margin:0;background:linear-gradient(180deg,#fff,#fff6fb);color:var(--dark)}
+    .container{max-width:1100px;margin:28px auto;padding:20px}
+
+    .head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+    .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--dark)}
+    .brand .logo{width:44px;height:44px;background:var(--accent);border-radius:10px;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+    h1{margin:0;font-size:26px}
+    p.lead{margin:4px 0 0;color:var(--muted)}
+
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:20px}
+    .card{background:var(--card);border-radius:16px;padding:18px;box-shadow:0 8px 30px rgba(0,0,0,0.06)}
+
+    /* help search */
+    .search{display:flex;gap:8px;align-items:center}
+    .search input{flex:1;padding:12px;border-radius:10px;border:1px solid #eee;font-size:15px}
+    .search button{padding:10px 12px;border-radius:10px;border:0;background:var(--accent);color:#fff;cursor:pointer}
+
+    /* quick links */
+    .quick{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+    .pill{background:#fff6fb;border:1px solid rgba(232,0,135,0.08);padding:10px 12px;border-radius:999px;font-weight:600;color:var(--accent);text-decoration:none}
+
+    /* FAQ */
+    .faq-item{border-top:1px dashed #f0e7ef;padding:14px 0}
+    .faq-item:first-child{border-top:0}
+    .question{display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+    .answer{margin-top:10px;color:var(--muted);display:none}
+
+    /* right column */
+    .support-card{display:flex;flex-direction:column;gap:12px}
+    .meta{display:flex;gap:12px;align-items:center}
+    .meta i{background:rgba(232,0,135,0.1);color:var(--accent);padding:10px;border-radius:10px;font-size:18px}
+    .btn{background:var(--accent);color:#fff;padding:10px;border-radius:10px;border:0;cursor:pointer;font-weight:600}
+
+    .links{display:grid;gap:8px;margin-top:6px}
+    .links a{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:10px;background:#fff;border:1px solid #f4e8f2;text-decoration:none;color:var(--dark)}
+
+    .chat{background:linear-gradient(180deg,#fff,#fff6fb);padding:12px;border-radius:12px;text-align:center}
+
+    .footer{margin-top:18px;font-size:13px;color:var(--muted);text-align:center}
+
+    @media (max-width:980px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="head">
+      <a class="brand" href="index.html"><div class="logo">N</div><div style="font-weight:700">Nykaa — Help</div></a>
+      <div style="text-align:right">
+        <h1>How can we help?</h1>
+        <p class="lead">Search FAQs, track orders, request a return, or contact our team.</p>
+      </div>
+    </div>
+
+    <div class="grid">
+      <main>
+        <div class="card">
+          <div class="search">
+            <input id="hsearch" placeholder="Search help topics, e.g. ‘return policy’" aria-label="Search help">
+            <button id="hbtn"><i class="fa-solid fa-magnifying-glass"></i></button>
+          </div>
+
+          <div class="quick" style="margin-top:16px">
+            <a class="pill" href="orders.html">Track my order</a>
+            <a class="pill" href="#payments">Payments</a>
+            <a class="pill" href="#products">Product info</a>
+            <a class="pill" href="#account">Account & login</a>
+          </div>
+
+          <h3 style="margin-top:20px">Frequently asked questions</h3>
+
+          <div id="faqs">
+            <div class="answer">Most items can be returned within 7 days of delivery. Some categories (intimates, cosmetics once opened) may not be returnable. Check product page for details.</div>
+            </div>
+
+            <div class="answer">Once we receive the returned item, refunds are processed within 5–7 business days to the original payment method.</div>
+            </div>
+
+            <div class="faq-item">
+              <div class="question"><div>Can I change my shipping address after order?</div><div><i class="fa-solid fa-chevron-down"></i></div></div>
+              <div class="answer">If the order is not yet shipped, contact support quickly using the chat or phone. Once shipped, address cannot be changed.</div>
+            </div>
+
+          </div>
+
+          <div style="margin-top:18px;display:flex;gap:10px;align-items:center">
+            <button class="btn" id="allfaqs">View all help topics</button>
+            <div style="margin-left:auto;color:var(--muted);font-size:13px">Still need help? Contact us on the right.</div>
+          </div>
+        </div>
+
+        </main>
+
+      <aside>
+        <div class="card support-card">
+          <div class="meta">
+            <i class="fa-solid fa-phone"></i>
+            <div>
+              <div style="font-weight:700">Call us</div>
+              <div style="color:var(--muted)">Mon–Sat, 9:00–19:00</div>
+            </div>
+          </div>
+
+          <a class="btn" href="tel:+919876543210">+91 98765 43210</a>
+
+          <div class="meta" style="margin-top:6px">
+            <i class="fa-solid fa-envelope"></i>
+            <div>
+              <div style="font-weight:700">Email</div>
+              <div style="color:var(--muted)">support@nykaa-demo.com</div>
+            </div>
+          </div>
+
+          <div style="margin-top:6px" class="links">
+            <a href="contact.html">Contact form <i class="fa-solid fa-arrow-right"></i></a>
+            <a href="#">Shipping rates <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+
+          <div style="color:var(--muted);margin-top:6px">Chat with our team for quick help.</div>
+            <button class="btn" style="margin-top:10px">Start chat</button>
+          </div>
+
+          <div style="margin-top:10px;background:#fff6fb;border-radius:10px;padding:10px;color:var(--muted)">
+            <strong>Order tracking tip</strong>
+            <div style="margin-top:6px">Enter your order ID on <a href="orders.html">My Orders</a> to track faster.</div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px;text-align:center;color:var(--muted)">
+          <div style="font-weight:700">Helpful links</div>
+          <div style="margin-top:8px">Payments • Shipping • Privacy</div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="footer">© Nykaa Demo Shop — Need extra help? Use contact page or call us.</div>
+  </div>
+
+  <script>
+    // FAQ toggle
+    document.querySelectorAll('.faq-item').forEach(item=>{
+      item.querySelector('.question').addEventListener('click', ()=>{
+        const ans = item.querySelector('.answer');
+        const open = ans.style.display === 'block';
+        ans.style.display = open ? 'none' : 'block';
+        item.querySelector('.question i').classList.toggle('fa-rotate-180', !open);
+      });
+    });
+
+    // search faux: just highlight results
+    document.getElementById('hbtn').addEventListener('click', ()=>{
+      const q = document.getElementById('hsearch').value.trim().toLowerCase();
+      if(!q) return alert('Type a short question or keyword.');
+      document.querySelectorAll('.faq-item').forEach(f=>{
+        const text = f.textContent.toLowerCase();
+        f.style.border = text.includes(q) ? '2px solid rgba(232,0,135,0.12)' : '1px dashed #f0e7ef';
+      });
+    });
+
+    // start chat (demo)
+    document.querySelectorAll('.chat .btn').forEach(b=>b.addEventListener('click', ()=> alert('Starting demo chat — integrate with your chat provider (e.g. Intercom, Crisp, or Firebase)')));
+  </script>
+</body>
+</html>

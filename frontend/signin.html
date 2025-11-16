@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In</title>
+  <style>
+    * {margin: 0; padding: 0; box-sizing: border-box; font-family: Inter, Arial;}
+    body {
+      background: linear-gradient(180deg, #fff, #f7f4ff);
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+    .card {
+      width: 100%;
+      max-width: 380px;
+      background: #ffffff;
+      padding: 32px;
+      border-radius: 22px;
+      box-shadow: 0 0 50px rgba(0,0,0,0.07);
+    }
+    h2 { text-align:center; margin-bottom:20px; color:#333; font-size:26px; }
+    label{display:block; font-weight:500; margin:10px 0 6px; color:#444;}
+    input{ width:100%; padding:12px; border:1.8px solid #d7d7d7; border-radius:10px; transition:0.2s; }
+    input:focus{ border-color:#8a62ff; box-shadow:0 0 0 3px rgba(138,98,255,0.15); }
+    button{ margin-top:20px; width:100%; padding:12px; background:#8a62ff; border:none; color:white; font-size:16px; border-radius:10px; cursor:pointer; }
+    button:hover{ background:#734fe0; }
+    .link-box{ text-align:center; margin-top:15px; font-size:14px; }
+    .link-box a{ color:#8a62ff; text-decoration:none; font-weight:600; }
+    #i_msg{ margin-top:10px; text-align:center; color:#666; min-height:18px }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Sign In</h2>
+
+    <!-- IMPORTANT: form id and input ids must match main.js -->
+    <form id="signinForm" autocomplete="on">
+      <label for="i_email">Email</label>
+      <input id="i_email" type="email" name="email" placeholder="Enter your email" required />
+
+      <label for="i_password">Password</label>
+      <input id="i_password" type="password" name="password" placeholder="Enter your password" required />
+
+      <!-- button must be type="submit" so JS submit handler fires -->
+      <button type="submit">Sign In</button>
+    </form>
+
+    <div id="i_msg" aria-live="polite"></div>
+
+    <div class="link-box">
+      Don't have an account? <a href="signup.html">Sign Up</a>
+    </div>
+  </div>
+
+  <!-- Firebase CDN (must load BEFORE main.js) -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+  <!-- your single JS -->
+  <script src="js/main.js"></script>
+</body>
+</html>
