@@ -34,145 +34,118 @@
 <body>
   <div class="card" role="form" aria-label="Sign up form">
     <h2>Create your account</h2>
-    <p class="lead">Join Nykaa Demo Shop — fast signup. (This is frontend-only — backend to be connected later.)</p>
+    <p class="lead">Join Nykaa Demo Shop — Register now to get started!</p>
 
     <form id="signupForm" autocomplete="on">
-      <label for="name">Full name</label>
-      <input id="name" name="name" placeholder="Aarti Sharma" required>
+      <label for="name">Full Name</label>
+      <input id="name" name="name" placeholder="Enter your full name" required>
+
+      <label for="age">Age</label>
+      <input id="age" name="age" type="number" min="1" max="120" placeholder="Enter your age" required>
+
+      <label for="phone">Phone Number</label>
+      <input id="phone" name="phone" type="tel" placeholder="+91 9xxxxxxxxx" required>
 
       <label for="email">Email</label>
       <input id="email" name="email" type="email" placeholder="you@example.com" required>
 
-      <label for="phone">Phone (optional)</label>
-      <input id="phone" name="phone" inputmode="tel" placeholder="+91 9xxxxxxxxx">
+      <label for="address">Address</label>
+      <input id="address" name="address" placeholder="Enter your full address" required>
 
       <label for="password">Password</label>
       <input id="password" name="password" type="password" placeholder="At least 6 characters" required>
 
-      <button class="btn" type="submit">Sign up</button>
+      <button class="btn" type="submit">Register</button>
     </form>
 
     <div class="msg" id="msg" aria-live="polite"></div>
 
-    <div style="margin-top:10px;display:flex;gap:8px;align-items:center">
-      <button id="demoSave" class="alt" style="flex:1">Save locally (demo)</button>
-      <button id="clear" class="alt" style="flex:1">Clear</button>
-    </div>
-
-    <div style="margin-top:12px" class="small">Or continue with</div>
-    <div class="socials">
-      <button title="Google sign-in (placeholder)"><i class="fa-brands fa-google"></i></button>
-      <button title="Facebook sign-in (placeholder)"><i class="fa-brands fa-facebook-f"></i></button>
-      <button title="Apple sign-in (placeholder)"><i class="fa-brands fa-apple"></i></button>
-    </div>
 
     <footer>Already have account? <a href="signin.html">Sign in</a></footer>
   </div>
 
 <script>
-// Frontend-only signup page
+// Registration form handler
 const form = document.getElementById('signupForm');
 const msg = document.getElementById('msg');
-const demoSave = document.getElementById('demoSave');
-const clearBtn = document.getElementById('clear');
 
 function showMessage(text, color) {
   msg.style.color = color || '#333';
   msg.textContent = text;
 }
 
-form.addEventListener('submit', (e)=>{
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
+  
   const name = form.name.value.trim();
-  const email = form.email.value.trim();
+  const age = form.age.value.trim();
   const phone = form.phone.value.trim();
+  const email = form.email.value.trim();
+  const address = form.address.value.trim();
   const password = form.password.value;
 
-  if(!name || !email || password.length < 6) {
-    showMessage('Please enter name, valid email and password (min 6 chars).', 'crimson');
+  // Validation
+  if (!name || !age || !phone || !email || !address || password.length < 6) {
+    showMessage('Please fill all fields. Password must be at least 6 characters.', 'crimson');
     return;
   }
 
-  // Since this page is frontend-only, we simply show a success message and keep data locally.
-  showMessage('Signup looks good — saved to browser storage for demo. Your friend can connect this to Firebase later.', 'green');
+  showMessage('Registering...', '#666');
 
-  // Save to localStorage as a demo (NOT secure). Friend will replace this with real API call.
-  const demoUser = { name, email, phone };
-  localStorage.setItem('demo_signup_user', JSON.stringify(demoUser));
+  try {
+    // Wait for Firebase to be initialized
+    if (typeof firebase === 'undefined' || !firebase.auth) {
+      showMessage('Firebase not loaded. Please refresh the page.', 'crimson');
+      return;
+    }
 
-  // reset password field for safety in demo
-  form.password.value = '';
+    // Create user with Firebase Authentication
+    const userCredential = await firebase.auth().createUserWithEmailAndPassword(email, password);
+    const user = userCredential.user;
+
+    // Update user profile with display name
+    await firebase.auth().currentUser.updateProfile({
+      displayName: name
+    });
+
+    // Save user data to Firestore
+    await firebase.firestore().collection('users').doc(user.uid).set({
+      name: name,
+      age: parseInt(age),
+      phone: phone,
+      email: email,
+      address: address,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    showMessage('Registration successful! Redirecting to login...', 'green');
+    
+    // Redirect to login page after 1.5 seconds
+    setTimeout(() => {
+      window.location.href = './signin.html';
+    }, 1500);
+
+  } catch (error) {
+    console.error('Registration error:', error);
+    let errorMessage = 'Registration failed. ';
+    if (error.code === 'auth/email-already-in-use') {
+      errorMessage += 'Email is already registered.';
+    } else if (error.code === 'auth/weak-password') {
+      errorMessage += 'Password is too weak.';
+    } else if (error.code === 'auth/invalid-email') {
+      errorMessage += 'Invalid email address.';
+    } else {
+      errorMessage += error.message;
+    }
+    showMessage(errorMessage, 'crimson');
+  }
 });
-
-// Demo: save form data locally (button)
-demoSave.addEventListener('click', ()=>{
-  const payload = {
-    name: form.name.value.trim(),
-    email: form.email.value.trim(),
-    phone: form.phone.value.trim()
-  };
-  if(!payload.name || !payload.email) return showMessage('Fill name & email before saving.', 'crimson');
-  localStorage.setItem('demo_signup_user', JSON.stringify(payload));
-  showMessage('Saved locally. Send the saved data to your backend developer if needed.', 'green');
-});
-
-// Clear form and demo storage
-clearBtn.addEventListener('click', ()=>{
-  form.reset();
-  localStorage.removeItem('demo_signup_user');
-  showMessage('', '');
-});
-
-// Helper: when friend integrates backend, they should replace the localStorage save with a fetch POST like:
-/*
-fetch('/api/signup', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ name, email, phone, password })
-}).then(res => res.json()).then(j => { ... })
-.catch(err => { ... });
-*/
-
-// Or: use Firebase Web SDK (modular) to create user client-side — example below (friend will add their config):
-/*
-// 1) Add Firebase scripts in <head> (CDN)
-// <script type="module">
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js';
-import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js';
-
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  // ... other keys
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-createUserWithEmailAndPassword(auth, email, password)
-  .then(userCredential => {
-    return updateProfile(userCredential.user, { displayName: name });
-  })
-  .then(()=> { /* signed up */ })
-  .catch(err => { /* handle error */ });
-// </script>
-<!-- */
-
-// On load: if demo data exists, prefill form
-window.addEventListener('DOMContentLoaded', ()=>{
-  try{
-    const saved = JSON.parse(localStorage.getItem('demo_signup_user'));
-    if(saved){ form.name.value = saved.name || ''; form.email.value = saved.email || ''; form.phone.value = saved.phone || ''; }
-  }catch(e){}
-}); -->
 </script>
 <!-- Firebase v8 (namespaced) - easiest for a single script file setup -->
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-
-<!-- your single JS -->
+<script src="js/firebase-config.js"></script>
 <script src="js/main.js"></script>
 
 </body>

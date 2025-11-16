@@ -7,14 +7,36 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
   <style>
-    /* small additions to your CSS so layout works */
+    /* ===== Shop scroll ===== */
     .shop { position: relative; display:flex; gap:15px; overflow-x:auto; padding:12px; scroll-behavior:smooth; }
-    .box{ flex:0 0 320px; text-decoration:none; color:inherit; }
-    .scrollBtn{position:absolute;top:45%;z-index:20;background:#e80087;color:#fff;border:none;padding:8px;border-radius:6px;cursor:pointer}
+    .box { flex:0 0 320px; text-decoration:none; color:inherit; }
+    .scrollBtn { position:absolute; top:45%; z-index:20; background:#e80087; color:#fff; border:none; padding:8px; border-radius:6px; cursor:pointer; }
     #leftBtn{left:6px} #rightBtn{right:6px}
+
+    /* ===== Profile dropdown ===== */
+    .profile-wrap { display: inline-block; position: relative; margin-left: 12px; }
+    .profile-icon-btn { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #e80087, #f80f97); border: 2px solid #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; box-shadow: 0 2px 8px rgba(232,0,135,0.3); transition: all 0.3s ease; }
+    .profile-icon-btn:hover { transform: scale(1.1); box-shadow: 0 4px 12px rgba(232,0,135,0.5); }
+    .profile-dropdown { position: absolute; right: 0; top: calc(100% + 12px); background: #fff; box-shadow: 0 8px 30px rgba(0,0,0,0.15); border-radius: 12px; display: none; min-width: 280px; z-index: 1000; overflow: hidden; }
+    .profile-dropdown.show { display: block; }
+    .profile-header { padding: 16px; background: linear-gradient(135deg, #e80087, #f80f97); color: #fff; }
+    .profile-header .name { font-weight:700; font-size:18px; margin-bottom:4px; }
+    .profile-header .email { font-size:13px; opacity:0.9; margin-bottom:4px; }
+    .profile-body { padding:8px; }
+    .profile-dropdown button { width:100%; padding:12px 16px; border:0; background:transparent; text-align:left; cursor:pointer; border-radius:8px; font-size:14px; color:#333; transition:background 0.2s; }
+    .profile-dropdown button:hover { background:#f6f0f8; }
+    .profile-dropdown button.logout-btn { color:#e80087; font-weight:600; border-top:1px solid #f0e7ef; margin-top:4px; }
+    .profile-dropdown button.logout-btn:hover { background:#ffe6f2; }
+    .signin-btn { padding:10px 16px; border-radius:20px; border:0; background:#e80087; color:#fff; cursor:pointer; font-weight:600; font-size:14px; transition: all 0.3s ease; text-decoration: none; display: inline-block; }
+    .signin-btn:hover { background:#f80f97; transform: translateY(-1px); box-shadow: 0 4px 8px rgba(232,0,135,0.3); }
+
+    .header2 .searchbar { position: relative; display:flex; align-items:center; gap:6px; }
+    #navSignedOut { display:flex !important; gap:8px; align-items:center; }
+    #navSignedOut .signin-btn { display:inline-block !important; }
   </style>
 </head>
 <body>
+  <!-- ===== Header ===== -->
   <header>
     <div class="navbar">
       <div class="nav1 border">BEAUTY BONANZA Get Your Amazing Deals!</div>
@@ -25,148 +47,6 @@
       </div>
     </div>
 
-
-<!-- ===== Profile Icon with Dropdown ===== -->
-<style>
-  /* Profile icon and dropdown styles */
-  .profile-wrap { 
-    display: inline-block; 
-    position: relative; 
-    margin-left: 12px; 
-  }
-  
-  .profile-icon-btn { 
-    width: 40px; 
-    height: 40px; 
-    border-radius: 50%; 
-    background: linear-gradient(135deg, #e80087, #f80f97); 
-    border: 2px solid #fff; 
-    cursor: pointer; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    color: #fff; 
-    font-size: 18px; 
-    box-shadow: 0 2px 8px rgba(232, 0, 135, 0.3);
-    transition: all 0.3s ease;
-  }
-  
-  .profile-icon-btn:hover { 
-    transform: scale(1.1); 
-    box-shadow: 0 4px 12px rgba(232, 0, 135, 0.5);
-  }
-  
-  .profile-dropdown { 
-    position: absolute; 
-    right: 0; 
-    top: calc(100% + 12px); 
-    background: #fff; 
-    box-shadow: 0 8px 30px rgba(0,0,0,0.15); 
-    border-radius: 12px; 
-    padding: 0; 
-    display: none; 
-    min-width: 280px; 
-    z-index: 1000; 
-    overflow: hidden;
-  }
-  
-  .profile-dropdown.show { 
-    display: block; 
-  }
-  
-  .profile-header { 
-    padding: 16px; 
-    background: linear-gradient(135deg, #e80087, #f80f97); 
-    color: #fff; 
-  }
-  
-  .profile-header .name { 
-    font-weight: 700; 
-    font-size: 18px; 
-    margin-bottom: 4px; 
-  }
-  
-  .profile-header .email { 
-    font-size: 13px; 
-    opacity: 0.9; 
-    margin-bottom: 4px; 
-  }
-  
-  .profile-header .phone { 
-    font-size: 12px; 
-    opacity: 0.8; 
-    margin-bottom: 8px; 
-  }
-  
-  .profile-header .registered-date { 
-    font-size: 11px; 
-    opacity: 0.85; 
-    padding-top: 8px; 
-    border-top: 1px solid rgba(255,255,255,0.2); 
-  }
-  
-  .profile-body { 
-    padding: 8px; 
-  }
-  
-  .profile-dropdown button { 
-    width: 100%; 
-    padding: 12px 16px; 
-    border: 0; 
-    background: transparent; 
-    text-align: left; 
-    cursor: pointer; 
-    border-radius: 8px; 
-    font-size: 14px; 
-    color: #333; 
-    transition: background 0.2s;
-  }
-  
-  .profile-dropdown button:hover { 
-    background: #f6f0f8; 
-  }
-  
-  .profile-dropdown button.logout-btn { 
-    color: #e80087; 
-    font-weight: 600; 
-    border-top: 1px solid #f0e7ef; 
-    margin-top: 4px; 
-  }
-  
-  .profile-dropdown button.logout-btn:hover { 
-    background: #ffe6f2; 
-  }
-  
-  .signin-btn { 
-    padding: 10px 16px; 
-    border-radius: 20px; 
-    border: 0; 
-    background: #e80087; 
-    color: #fff; 
-    cursor: pointer; 
-    font-weight: 600; 
-    font-size: 14px;
-    transition: all 0.3s ease;
-  }
-  
-  .signin-btn:hover { 
-    background: #f80f97; 
-    transform: translateY(-1px);
-    box-shadow: 0 4px 8px rgba(232, 0, 135, 0.3);
-  }
-  
-  /* Position profile in header2 */
-  .header2 .searchbar {
-    position: relative;
-  }
-  
-  .profile-wrap {
-    margin-left: 15px;
-  }
-</style>
-
-<!-- ===== End Profile Icon ===== -->
-
     <div class="header2">
       <div class="headlist">
         <a class="logo" href="index.html" aria-label="Home"></a>
@@ -175,42 +55,40 @@
       <div class="searchbar">
         <i class="fa-solid fa-magnifying-glass"></i>
         <input id="searchInput" placeholder="Search on NYkaa">
-        <!-- Profile icon and sign in button -->
-        <div id="userArea" class="profile-wrap" aria-live="polite" style="display: none;">
-          <button class="profile-icon-btn" id="profileIconBtn" aria-label="Profile" aria-haspopup="true" aria-expanded="false">
+
+        <!-- Profile icon for logged-in user -->
+        <div id="userArea" class="profile-wrap" style="display:none;">
+          <button class="profile-icon-btn" id="profileIconBtn">
             <i class="fa-solid fa-user"></i>
           </button>
-          
-          <div class="profile-dropdown" id="profileDropdown" role="menu" aria-hidden="true">
+          <div class="profile-dropdown" id="profileDropdown">
             <div class="profile-header">
               <div class="name" id="dropdownName">User</div>
               <div class="email" id="dropdownEmail">email@example.com</div>
-              <div class="phone" id="dropdownPhone"></div>
-              <div class="registered-date" id="dropdownRegisteredDate">
-                <i class="fa-solid fa-calendar"></i> Registered: Loading...
-              </div>
             </div>
             <div class="profile-body">
-              <button id="goToAccount">
-                <i class="fa-solid fa-user-circle"></i> My Account
-              </button>
-              <button id="logoutBtn" class="logout-btn">
-                <i class="fa-solid fa-sign-out-alt"></i> Logout
-              </button>
+              <div style="padding: 8px 16px; font-size: 13px; color: #666; border-bottom: 1px solid #f0e7ef;">
+                <div style="margin-bottom: 6px;"><strong>Name:</strong> <span id="dropdownNameDetail">-</span></div>
+                <div style="margin-bottom: 6px;"><strong>Age:</strong> <span id="dropdownAge">-</span></div>
+                <div style="margin-bottom: 6px;"><strong>Phone:</strong> <span id="dropdownPhone">-</span></div>
+                <div style="margin-bottom: 6px;"><strong>Address:</strong> <span id="dropdownAddress">-</span></div>
+              </div>
+              <button id="goToAccount">My Account</button>
+              <button id="logoutBtn" class="logout-btn">Logout</button>
             </div>
           </div>
         </div>
-        
-        <!-- Sign in button - shown when signed out -->
-        <div id="navSignedOut" class="profile-wrap" style="display: none;">
-          <a href="signin.html">
-            <button class="signin-btn">
-              <i class="fa-solid fa-sign-in-alt"></i> Sign in
-            </button>
-          </a>
+
+        <!-- Register button for logged-out user -->
+        <div id="navSignedOut" class="profile-wrap" style="display:flex; gap:8px; align-items:center;">
+          <a href="siginup.html"><button class="signin-btn"><i class="fa-solid fa-user-plus"></i> Register</button></a>
         </div>
-        
-        <a href="cart.html" title="Cart"><i class="fa-solid fa-bag-shopping" style="color:#121212;"></i></a>
+
+        <!-- Cart -->
+        <a href="cart.html" title="Cart" style="position: relative; display: inline-block;">
+          <i class="fa-solid fa-bag-shopping" style="font-size: 20px;"></i>
+          <span id="cartBadge" style="position: absolute; top: -8px; right: -8px; background: #e80087; color: white; border-radius: 50%; width: 20px; height: 20px; display: none; align-items: center; justify-content: center; font-size: 11px; font-weight: bold; border: 2px solid white;">0</span>
+        </a>
       </div>
     </div>
 
@@ -227,10 +105,10 @@
     </nav>
   </header>
 
-  <!-- shop section with scroll buttons -->
+  <!-- ===== Shop Section ===== -->
   <div style="position:relative; margin:16px 0">
-    <button id="leftBtn" class="scrollBtn" aria-label="scroll left">◀</button>
-    <button id="rightBtn" class="scrollBtn" aria-label="scroll right">▶</button>
+    <button id="leftBtn" class="scrollBtn">◀</button>
+    <button id="rightBtn" class="scrollBtn">▶</button>
 
     <div class="shop" id="shop">
       <a href="box1.html" class="box"><div class="img" style="background-image:url(box1.jpg)"></div></a>
@@ -240,48 +118,126 @@
       <a href="box5.html" class="box"><div class="img" style="background-image:url(box5.jpg)"></div></a>
       <a href="box6.html" class="box"><div class="img" style="background-image:url(box6.jpg)"></div></a>
       <a href="box7.html" class="box"><div class="img" style="background-image:url(box7.jpg)"></div></a>
-      
-      
-
     </div>
   </div>
 
-  <!-- rest of page -->
-  <div class="banner"></div>
-  <div class="banner2"></div>
-  <div class="gif"><h2>Early Access Starts Tomorrow</h2><div class="gif2">Heat's On, Deals Are LIT!</div><div class="giff"></div></div>
-  <div class="extra"></div>
-
+  <!-- ===== Footer ===== -->
   <footer class="dis">
     <div class="red"></div>
-    <p style="padding:12px"><b></b>Smart fashion discovery, secure shopping, and real-time order tracking — all in one platform.</b></p>
+    <p style="padding:12px;">Smart fashion discovery, secure shopping, and real-time order tracking — all in one platform.</p>
   </footer>
 
-<script>
-  // auto-scroll every 3s (stops if user interacts)
-  const shop = document.getElementById('shop');
-  let auto = setInterval(()=> { shop.scrollBy({ left: 320, behavior: 'smooth' }); }, 3000);
-  shop.addEventListener('mouseenter', ()=> clearInterval(auto));
-  shop.addEventListener('touchstart', ()=> clearInterval(auto));
+  <!-- ===== Firebase Scripts ===== -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/main.js"></script>
 
-  document.getElementById('rightBtn').addEventListener('click', ()=> shop.scrollBy({ left: 320, behavior: 'smooth' }));
-  document.getElementById('leftBtn').addEventListener('click', ()=> shop.scrollBy({ left: -320, behavior: 'smooth' }));
+  <!-- ===== Scripts ===== -->
+  <script>
+    // Shop scroll
+    const shop = document.getElementById('shop');
+    document.getElementById('rightBtn').addEventListener('click', ()=> shop.scrollBy({ left: 320, behavior: 'smooth' }));
+    document.getElementById('leftBtn').addEventListener('click', ()=> shop.scrollBy({ left: -320, behavior: 'smooth' }));
+    
+    // Profile dropdown
+    const profileIconBtn = document.getElementById('profileIconBtn');
+    const profileDropdown = document.getElementById('profileDropdown');
+    const userArea = document.getElementById('userArea');
+    const navSignedOut = document.getElementById('navSignedOut');
+    const logoutBtn = document.getElementById('logoutBtn');
 
-  // basic search navigation (Enter)
-  document.getElementById('searchInput').addEventListener('keydown', e=>{
-    if(e.key === 'Enter'){
-      const q = e.target.value.trim();
-      if(!q) return;
-      // open products page with query param (you should create products.html to read this)
-      window.location.href = `products.html?q=${encodeURIComponent(q)}`;
+    if (profileIconBtn && profileDropdown) {
+      profileIconBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        profileDropdown.classList.toggle('show');
+      });
+      document.addEventListener('click', e => {
+        if(profileIconBtn && profileDropdown && !profileIconBtn.contains(e.target) && !profileDropdown.contains(e.target)){
+          profileDropdown.classList.remove('show');
+        }
+      });
     }
-  });
-</script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    // Check auth state on page load
+    function checkAuthState() {
+      if (typeof firebase !== 'undefined' && firebase.auth) {
+        firebase.auth().onAuthStateChanged((user) => {
+          if (user) {
+            // User is logged in
+            if (userArea) userArea.style.display = 'block';
+            if (navSignedOut) navSignedOut.style.display = 'none';
+            loadUserProfile(user.uid);
+          } else {
+            // User is not logged in
+            if (userArea) userArea.style.display = 'none';
+            if (navSignedOut) navSignedOut.style.display = 'flex';
+          }
+        });
+      } else {
+        // Firebase not loaded yet, check after a delay
+        setTimeout(checkAuthState, 500);
+      }
+    }
 
-<script src="js/main.js"></script>
+    // Wait for DOM and Firebase to be ready
+    window.addEventListener('DOMContentLoaded', ()=>{
+      // Wait a bit for Firebase to initialize
+      setTimeout(checkAuthState, 100);
+      // Update cart count
+      if (typeof updateCartCount === 'function') {
+        updateCartCount();
+      }
+    });
 
+    // Function to load user profile data
+    function loadUserProfile(uid) {
+      if (typeof firebase !== 'undefined' && firebase.firestore && uid) {
+        firebase.firestore().collection('users').doc(uid).get()
+          .then((doc) => {
+            if (doc.exists) {
+              const data = doc.data();
+              const nameEl = document.getElementById('dropdownName');
+              const emailEl = document.getElementById('dropdownEmail');
+              const nameDetailEl = document.getElementById('dropdownNameDetail');
+              const ageEl = document.getElementById('dropdownAge');
+              const phoneEl = document.getElementById('dropdownPhone');
+              const addressEl = document.getElementById('dropdownAddress');
+              
+              if (nameEl) nameEl.textContent = data.name || 'User';
+              if (emailEl) emailEl.textContent = data.email || '';
+              if (nameDetailEl) nameDetailEl.textContent = data.name || '-';
+              if (ageEl) ageEl.textContent = data.age || '-';
+              if (phoneEl) phoneEl.textContent = data.phone || '-';
+              if (addressEl) addressEl.textContent = data.address || '-';
+            }
+          })
+          .catch((error) => {
+            console.error('Error loading user profile:', error);
+          });
+      }
+    }
+
+    // Update logout to actually sign out
+    if (logoutBtn) {
+      logoutBtn.addEventListener('click', ()=>{
+        if (typeof firebase !== 'undefined' && firebase.auth) {
+          firebase.auth().signOut().then(() => {
+            if (userArea) userArea.style.display='none';
+            if (navSignedOut) navSignedOut.style.display='flex';
+            if (profileDropdown) profileDropdown.classList.remove('show');
+            window.location.href = './index.html';
+          }).catch((error) => {
+            console.error('Logout error:', error);
+          });
+        } else {
+          if (userArea) userArea.style.display='none';
+          if (navSignedOut) navSignedOut.style.display='flex';
+          if (profileDropdown) profileDropdown.classList.remove('show');
+        }
+      });
+    }
+  </script>
 </body>
 </html>

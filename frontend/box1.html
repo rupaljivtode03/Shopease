@@ -106,11 +106,10 @@
         <div class="details">Comfort fit cotton shirt</div>
 
         <div class="btn-row">
-          
+          <button onclick="addProductToCart('Casual Shirt', 699, 'top.jpg')">Add to Cart</button>
           <a href="order.html?name=Casual%20Shirt&price=699&img=top.jpg">
-  <button>Order</button>
-</a>
-
+            <button>Order</button>
+          </a>
         </div>
       </div>
     </div>
@@ -125,11 +124,10 @@
         <div class="details">Stretchable premium denim</div>
 
         <div class="btn-row">
-          
-        <a href="order.html?name=Black%20Jeans&price=499&img=pant1.jpg">
-  <button>Order</button>
-</a>
-
+          <button onclick="addProductToCart('Black Jeans', 499, 'pant1.jpg')">Add to Cart</button>
+          <a href="order.html?name=Black%20Jeans&price=499&img=pant1.jpg">
+            <button>Order</button>
+          </a>
         </div>
       </div>
     </div>
@@ -144,7 +142,7 @@
         <div class="details">Soft fabric daily wear</div>
 
         <div class="btn-row">
-          
+          <button onclick="addProductToCart('Shirt', 1199, 'shirt.jpg')">Add to Cart</button>
           <a href="order.html?name=Shirt&price=1199&img=shirt.jpg"><button>Order</button></a>
         </div>
       </div>
@@ -160,7 +158,7 @@
         <div class="details">Slim fit soft denim</div>
 
         <div class="btn-row">
-          
+          <button onclick="addProductToCart('Blue Jeans', 999, 'jean.jpg')">Add to Cart</button>
           <a href="order.html?name=Blue%20Jeans&price=999&img=jean.jpg"><button>Order</button></a>
         </div>
       </div>
@@ -176,7 +174,7 @@
         <div class="details">Trendy stylish crop top</div>
 
         <div class="btn-row">
-          
+          <button onclick="addProductToCart('casual shirt', 799, 'shirt2.jpg')">Add to Cart</button>
           <a href="order.html?name=casual%20shirt&price=799&img=shirt2.jpg"><button>Order</button></a>
         </div>
       </div>
@@ -192,7 +190,7 @@
         <div class="details">Comfort fit daily wear pants</div>
 
         <div class="btn-row">
-          
+          <button onclick="addProductToCart('Casual Pants', 899, 'pant.jpg')">Add to Cart</button>
           <a href="order.html?name=Casual%20Pants&price=899&img=pant.jpg"><button>Order</button></a>
         </div>
       </div>
@@ -200,5 +198,29 @@
 
   </div>
 
+  <!-- Cart Script -->
+  <script src="js/cart.js"></script>
+  <script>
+    // Function to add product to cart
+    function addProductToCart(name, price, img) {
+      const product = {
+        id: name.toLowerCase().replace(/\s+/g, '-') + '-' + Date.now(),
+        name: name,
+        price: price,
+        img: img
+      };
+      
+      if (typeof addToCart === 'function') {
+        addToCart(product);
+        alert(`${name} added to cart!`);
+        // Update cart count if on a page with the badge
+        if (typeof updateCartCount === 'function') {
+          updateCartCount();
+        }
+      } else {
+        alert('Cart functionality not loaded. Please refresh the page.');
+      }
+    }
+  </script>
 </body>
 </html>

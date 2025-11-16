@@ -1,48 +1,23 @@
-<<<<<<< HEAD
-# ...existing code...
-=======
->>>>>>> bf691cdf37e9ca01fd7271a05f3e27c660099eef
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from firebase_config import init_firebase
 from datetime import datetime
+import sys
 
 app = Flask(__name__)
-<<<<<<< HEAD
-CORS(app, resources={r"/api/*": {"origins": "*"}})
-
-=======
 CORS(app)  # Enable CORS for all routes
->>>>>>> bf691cdf37e9ca01fd7271a05f3e27c660099eef
-db = init_firebase()
+
+# Initialize Firebase (with error handling)
+try:
+    from firebase_config import init_firebase
+    db = init_firebase()
+    print("✅ Firebase initialized successfully!")
+except Exception as e:
+    print(f"⚠️  Warning: Firebase initialization failed: {e}")
+    print("   Backend will still run, but database operations will fail.")
+    db = None
 
 @app.route("/")
 def home():
-<<<<<<< HEAD
-    return "Backend API is running!"
-
-# Simple user add (keeps existing behavior)
-@app.route("/add-user", methods=["POST"])
-def add_user():
-    data = request.json or {}
-    try:
-        db.collection("users").add(data)
-        return jsonify({"message": "User added successfully!"}), 201
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-# API prefix endpoints expected by frontend
-@app.route("/api/products", methods=["GET"])
-def get_products():
-    try:
-        docs = db.collection("products").stream()
-        products = []
-        for d in docs:
-            p = d.to_dict()
-            p["id"] = d.id
-            products.append(p)
-        return jsonify(products), 200
-=======
     return jsonify({"message": "Backend API is running!", "status": "success"})
 
 # User Management
@@ -162,47 +137,25 @@ def get_orders():
             orders.append({"id": doc.id, **doc.to_dict()})
         
         return jsonify({"orders": orders, "count": len(orders)}), 200
->>>>>>> bf691cdf37e9ca01fd7271a05f3e27c660099eef
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
 @app.route("/api/orders", methods=["POST"])
 def create_order():
-<<<<<<< HEAD
-    data = request.json or {}
-    # basic validation
-    if "items" not in data or "total" not in data:
-        return jsonify({"error": "Missing items or total"}), 400
-    order = {
-        "items": data["items"],
-        "total": data["total"],
-        "userId": data.get("userId"),
-        "address": data.get("address", ""),
-        "phone": data.get("phone", ""),
-        "paymentMethod": data.get("paymentMethod", "COD"),
-        "createdAt": datetime.utcnow().isoformat() + "Z"
-    }
-    try:
-        doc_ref = db.collection("orders").add(order)
-        return jsonify({"id": doc_ref[1].id if isinstance(doc_ref, tuple) else doc_ref.id}), 201
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
-# ...existing code...
-=======
     try:
         data = request.json
         if not data:
             return jsonify({"error": "No data provided"}), 400
         
+        if db is None:
+            return jsonify({"error": "Database not initialized. Please check Firebase configuration."}), 500
+        
         order_data = {
             "userId": data.get("userId"),
             "items": data.get("items", []),
             "total": data.get("total", 0),
-            "address": data.get("address"),
-            "phone": data.get("phone"),
+            "address": data.get("address", ""),
+            "phone": data.get("phone", ""),
             "paymentMethod": data.get("paymentMethod", "COD"),
             "status": data.get("status", "Pending"),
             "createdAt": datetime.now()
@@ -250,5 +203,5 @@ def health_check():
     return jsonify({"status": "healthy", "timestamp": datetime.now().isoformat()}), 200
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
->>>>>>> bf691cdf37e9ca01fd7271a05f3e27c660099eef
+    app.run(host="0.0.0.0", port=5000, debug=True)
+

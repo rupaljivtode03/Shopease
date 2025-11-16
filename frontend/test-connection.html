@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Backend Connection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #e80087;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background: #ff0fa3;
+        }
+        .result {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            background: #f9f9f9;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        h1 {
+            color: #e80087;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔌 Backend Connection Test</h1>
+    
+    <div class="test-section">
+        <h2>1. Health Check</h2>
+        <button onclick="testHealth()">Test Backend Health</button>
+        <div id="healthResult" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>2. Test Order Creation</h2>
+        <button onclick="testOrder()">Create Test Order</button>
+        <div id="orderResult" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>3. View Network Requests</h2>
+        <p>Open Developer Tools (F12) → Network tab, then click the buttons above to see the API calls.</p>
+        <p><strong>Look for:</strong></p>
+        <ul>
+            <li>Requests to <code>http://localhost:5000/api/health</code></li>
+            <li>POST requests to <code>http://localhost:5000/api/orders</code></li>
+        </ul>
+    </div>
+
+    <div class="test-section">
+        <h2>4. Connection Status</h2>
+        <button onclick="checkFullConnection()">🔍 Check Full Connection</button>
+        <div id="fullStatus" class="result"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:5000/api';
+
+        async function testHealth() {
+            const resultDiv = document.getElementById('healthResult');
+            resultDiv.textContent = 'Testing...';
+            resultDiv.className = 'result';
+
+            try {
+                const response = await fetch(`${API_BASE}/health`);
+                const data = await response.json();
+                
+                resultDiv.textContent = `✅ SUCCESS!\n\nStatus: ${response.status}\nResponse: ${JSON.stringify(data, null, 2)}`;
+                resultDiv.className = 'result success';
+            } catch (error) {
+                resultDiv.textContent = `❌ ERROR!\n\n${error.message}\n\nMake sure the backend is running on port 5000.`;
+                resultDiv.className = 'result error';
+            }
+        }
+
+        async function testOrder() {
+            const resultDiv = document.getElementById('orderResult');
+            resultDiv.textContent = 'Creating test order...';
+            resultDiv.className = 'result';
+
+            const testOrder = {
+                userId: 'test-user-123',
+                items: [{
+                    id: 'test-1',
+                    name: 'Test Product',
+                    price: 999,
+                    img: 'test.jpg',
+                    time: new Date().toISOString()
+                }],
+                total: 999,
+                address: '123 Test Street',
+                phone: '1234567890',
+                paymentMethod: 'COD'
+            };
+
+            try {
+                const response = await fetch(`${API_BASE}/orders`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(testOrder)
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.textContent = `✅ ORDER CREATED!\n\nStatus: ${response.status}\nOrder ID: ${data.id}\n\nFull Response:\n${JSON.stringify(data, null, 2)}`;
+                    resultDiv.className = 'result success';
+                } else {
+                    resultDiv.textContent = `❌ ERROR!\n\nStatus: ${response.status}\nResponse: ${JSON.stringify(data, null, 2)}`;
+                    resultDiv.className = 'result error';
+                }
+            } catch (error) {
+                resultDiv.textContent = `❌ CONNECTION ERROR!\n\n${error.message}\n\nMake sure:\n1. Backend is running on port 5000\n2. CORS is enabled\n3. No firewall is blocking the connection`;
+                resultDiv.className = 'result error';
+            }
+        }
+
+        async function checkFullConnection() {
+            const resultDiv = document.getElementById('fullStatus');
+            resultDiv.textContent = 'Checking connection...';
+            resultDiv.className = 'result';
+
+            let status = {
+                backendRunning: false,
+                healthCheck: false,
+                orderCreation: false,
+                corsEnabled: false
+            };
+
+            try {
+                // Test 1: Health Check
+                const healthResponse = await fetch(`${API_BASE}/health`);
+                if (healthResponse.ok) {
+                    status.backendRunning = true;
+                    status.healthCheck = true;
+                    const healthData = await healthResponse.json();
+                    
+                    // Check CORS
+                    const corsHeader = healthResponse.headers.get('Access-Control-Allow-Origin');
+                    status.corsEnabled = corsHeader !== null;
+
+                    // Test 2: Order Creation
+                    try {
+                        const orderResponse = await fetch(`${API_BASE}/orders`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                userId: 'connection-test',
+                                items: [{ id: 'test', name: 'Test', price: 1 }],
+                                total: 1,
+                                address: 'Test',
+                                phone: '123',
+                                paymentMethod: 'COD'
+                            })
+                        });
+                        
+                        if (orderResponse.ok) {
+                            status.orderCreation = true;
+                        }
+                    } catch (e) {
+                        // Order test failed
+                    }
+
+                    // Build status message
+                    const allPassed = Object.values(status).every(v => v === true);
+                    let message = allPassed 
+                        ? '🎉 ALL TESTS PASSED! Frontend and Backend are fully connected!\n\n'
+                        : '⚠️ SOME TESTS FAILED\n\n';
+                    
+                    message += `✅ Backend Running: ${status.backendRunning ? 'YES' : 'NO'}\n`;
+                    message += `✅ Health Check: ${status.healthCheck ? 'YES' : 'NO'}\n`;
+                    message += `✅ Order Creation: ${status.orderCreation ? 'YES' : 'NO'}\n`;
+                    message += `✅ CORS Enabled: ${status.corsEnabled ? 'YES' : 'NO'}\n\n`;
+                    
+                    if (allPassed) {
+                        message += 'Your application is ready to use!';
+                        resultDiv.className = 'result success';
+                    } else {
+                        message += 'Check the failed items above.';
+                        resultDiv.className = 'result error';
+                    }
+                    
+                    resultDiv.textContent = message;
+                } else {
+                    throw new Error('Backend not responding');
+                }
+            } catch (error) {
+                resultDiv.textContent = `❌ CONNECTION FAILED!\n\n${error.message}\n\nMake sure:\n1. Backend is running: python app.py\n2. Backend is on port 5000\n3. No firewall blocking`;
+                resultDiv.className = 'result error';
+            }
+        }
+    </script>
+</body>
+</html>
+

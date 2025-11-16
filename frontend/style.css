@@ -1,7 +1,7 @@
 
-/* hide that left sign-in button beside search */
-.searchbar a[href="siginup.html"],
-.searchbar a[href="signin.html"] { display: none !important; }
+/* Old sign-in button hiding rule - removed to allow profile buttons */
+/* .searchbar a[href="siginup.html"],
+.searchbar a[href="signin.html"] { display: none !important; } */
 
 *{
     border: border-box;

@@ -24,11 +24,11 @@
     h2 { text-align:center; margin-bottom:20px; color:#333; font-size:26px; }
     label{display:block; font-weight:500; margin:10px 0 6px; color:#444;}
     input{ width:100%; padding:12px; border:1.8px solid #d7d7d7; border-radius:10px; transition:0.2s; }
-    input:focus{ border-color:#8a62ff; box-shadow:0 0 0 3px rgba(138,98,255,0.15); }
-    button{ margin-top:20px; width:100%; padding:12px; background:#8a62ff; border:none; color:white; font-size:16px; border-radius:10px; cursor:pointer; }
-    button:hover{ background:#734fe0; }
+    input:focus{ border-color:#e80087; box-shadow:0 0 0 3px rgba(232,0,135,0.15); }
+    button{ margin-top:20px; width:100%; padding:12px; background:#e80087; border:none; color:white; font-size:16px; border-radius:10px; cursor:pointer; transition: all 0.3s ease; }
+    button:hover{ background:#f80f97; transform: translateY(-1px); box-shadow: 0 4px 8px rgba(232,0,135,0.3); }
     .link-box{ text-align:center; margin-top:15px; font-size:14px; }
-    .link-box a{ color:#8a62ff; text-decoration:none; font-weight:600; }
+    .link-box a{ color:#e80087; text-decoration:none; font-weight:600; }
     #i_msg{ margin-top:10px; text-align:center; color:#666; min-height:18px }
   </style>
 </head>
@@ -51,7 +51,7 @@
     <div id="i_msg" aria-live="polite"></div>
 
     <div class="link-box">
-      Don't have an account? <a href="signup.html">Sign Up</a>
+      Don't have an account? <a href="siginup.html">Sign Up</a>
     </div>
   </div>
 
@@ -59,8 +59,7 @@
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-
-  <!-- your single JS -->
+  <script src="js/firebase-config.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

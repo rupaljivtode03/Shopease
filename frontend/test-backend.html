@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend Connection Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        button {
+            background: #e80087;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background: #f80f97;
+        }
+        .result {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        h1 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-box">
+        <h1>🔌 Backend Connection Test</h1>
+        <p>Test if your frontend can connect to the backend server.</p>
+        
+        <button onclick="testConnection()">Test Backend Connection</button>
+        <button onclick="testHealth()">Test Health Endpoint</button>
+        <button onclick="testOrder()">Test Order Endpoint</button>
+        
+        <div id="result" class="result" style="display:none;"></div>
+    </div>
+
+    <div class="test-box">
+        <h2>📋 Instructions</h2>
+        <ol>
+            <li>Make sure backend is running: <code>cd backend && python app.py</code></li>
+            <li>Backend should be running on <code>http://localhost:5000</code></li>
+            <li>Click "Test Backend Connection" to verify</li>
+        </ol>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:5000/api';
+
+        function showResult(message, isSuccess) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result ' + (isSuccess ? 'success' : 'error');
+            resultDiv.textContent = message;
+        }
+
+        async function testConnection() {
+            showResult('Testing connection...', false);
+            
+            try {
+                const response = await fetch(`${API_BASE}/health`);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showResult(`✅ CONNECTED!\n\nBackend is running!\n\nResponse:\n${JSON.stringify(data, null, 2)}`, true);
+                } else {
+                    showResult(`❌ Backend responded but with error:\n${JSON.stringify(data, null, 2)}`, false);
+                }
+            } catch (error) {
+                showResult(`❌ CONNECTION FAILED!\n\nError: ${error.message}\n\nMake sure:\n1. Backend is running: python app.py\n2. Backend is on port 5000\n3. No firewall blocking`, false);
+            }
+        }
+
+        async function testHealth() {
+            showResult('Testing /api/health...', false);
+            
+            try {
+                const response = await fetch(`${API_BASE}/health`);
+                const data = await response.json();
+                showResult(`✅ Health Check Success!\n\n${JSON.stringify(data, null, 2)}`, true);
+            } catch (error) {
+                showResult(`❌ Health Check Failed!\n\n${error.message}`, false);
+            }
+        }
+
+        async function testOrder() {
+            showResult('Testing /api/orders...', false);
+            
+            try {
+                const response = await fetch(`${API_BASE}/orders`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        userId: 'test-user',
+                        items: [{ name: 'Test Product', price: 100 }],
+                        total: 100,
+                        address: 'Test Address',
+                        phone: '1234567890',
+                        paymentMethod: 'COD'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showResult(`✅ Order Created Successfully!\n\n${JSON.stringify(data, null, 2)}`, true);
+                } else {
+                    showResult(`❌ Order Failed!\n\n${JSON.stringify(data, null, 2)}`, false);
+                }
+            } catch (error) {
+                showResult(`❌ Order Test Failed!\n\n${error.message}`, false);
+            }
+        }
+
+        // Auto-test on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(testConnection, 500);
+        });
+    </script>
+</body>
+</html>
+

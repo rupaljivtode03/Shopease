@@ -1,0 +1,40 @@
+// ============================================
+// TEST COMMANDS FOR BROWSER CONSOLE
+// Copy and paste these one by one into the console
+// ============================================
+
+// TEST 1: Health Check
+fetch('http://localhost:5000/api/health')
+  .then(res => res.json())
+  .then(data => console.log('✅ Health Check Success:', data))
+  .catch(err => console.error('❌ Health Check Failed:', err));
+
+// TEST 2: Create Test Order
+fetch('http://localhost:5000/api/orders', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    userId: 'test-user-123',
+    items: [{ 
+      id: 'test-1', 
+      name: 'Test Product', 
+      price: 999,
+      img: 'test.jpg',
+      time: new Date().toISOString()
+    }],
+    total: 999,
+    address: '123 Test Street, Test City',
+    phone: '1234567890',
+    paymentMethod: 'COD'
+  })
+})
+  .then(res => res.json())
+  .then(data => console.log('✅ Order Created Successfully:', data))
+  .catch(err => console.error('❌ Order Creation Failed:', err));
+
+// TEST 3: Get All Orders (if you want to verify)
+fetch('http://localhost:5000/api/orders')
+  .then(res => res.json())
+  .then(data => console.log('✅ All Orders:', data))
+  .catch(err => console.error('❌ Failed to get orders:', err));
+

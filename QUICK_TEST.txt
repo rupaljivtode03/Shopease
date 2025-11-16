@@ -1,0 +1,38 @@
+// ============================================
+// QUICK CONNECTION TEST - Copy & Paste in Console
+// ============================================
+
+// TEST 1: Health Check (You already did this - ✅ Working!)
+fetch('http://localhost:5000/api/health')
+  .then(res => res.json())
+  .then(data => console.log('✅ CONNECTED!', data))
+  .catch(err => console.error('❌ NOT CONNECTED:', err));
+
+// TEST 2: Create Order (Test full integration)
+fetch('http://localhost:5000/api/orders', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    userId: 'test-user',
+    items: [{ 
+      id: '1', 
+      name: 'Test Product', 
+      price: 999,
+      img: 'test.jpg',
+      time: new Date().toISOString()
+    }],
+    total: 999,
+    address: 'Test Address',
+    phone: '1234567890',
+    paymentMethod: 'COD'
+  })
+})
+  .then(res => res.json())
+  .then(data => {
+    console.log('✅ ORDER CREATED!', data);
+    if (data.id) {
+      alert('🎉 Full Connection Verified!\nOrder ID: ' + data.id);
+    }
+  })
+  .catch(err => console.error('❌ ORDER FAILED:', err));
+
