@@ -11,7 +11,7 @@ if (typeof firebase !== 'undefined') {
 }
 
 // API base for backend calls
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE =  'https://shopease-1-1t6b.onrender.com';
 
 /* -------------------------
    SIGN IN FORM HANDLER

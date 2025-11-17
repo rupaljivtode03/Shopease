@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Place Order</title>
+ 
   <style>
     body { font-family: 'Segoe UI', sans-serif; background: #f7f7f7; margin: 0; padding: 0; }
     .container { max-width: 500px; margin: 40px auto; background: #fff; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); padding: 20px; }
@@ -17,6 +18,7 @@
     .address-section input, .address-section textarea { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd; font-size: 14px; }
     .address-section textarea { resize: vertical; }
 
+    /* existing button rule (kept for fallback) */
     button { width: 100%; padding: 12px; font-size: 16px; background: #e80087; color: #fff; border: none; border-radius: 8px; cursor: pointer; }
     button:hover { background: #ff0fa3; }
 
@@ -28,7 +30,20 @@
     .close-btn { padding:8px 16px; background:#e80087; color:#fff; border:none; border-radius:8px; cursor:pointer; }
     .close-btn:hover { background:#ff0fa3; }
 
+    /* ===== new: adjust confirm button size ===== */
+    #confirmBtn {
+      width: 100%;
+      max-width: 420px;    /* button won't grow larger than this */
+      height: 52px;        /* desired height */
+      padding: 12px 20px;  /* vertical/horizontal padding */
+      font-size: 18px;     /* text size */
+      display: block;
+      margin: 18px auto 0; /* center inside container */
+      border-radius: 10px; /* slightly larger radius */
+      box-shadow: 0 4px 12px rgba(232,0,135,0.12);
+    }
   </style>
+  
 </head>
 <body>
 
@@ -53,6 +68,19 @@
       <label for="address">Address</label>
       <textarea id="address" placeholder="Enter your full address"></textarea>
     </div>
+   
+      
+      <select id="size" name="size" required style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd; font-size:14px;">
++        <option value="" disabled selected>Select size</option>
++        <option value="S">S</option>
++        <option value="M">M</option>
++        <option value="L">L</option>
++        <option value="XL">XL</option>
++        <option value="XXL">XXL</option>
++      </select>
+    </div>
+  
+
 
     <button id="confirmBtn">Confirm Order (Cash on Delivery)</button>
   </div>

@@ -1,3 +1,5 @@
+// ...existing code...
+
 // Cart Management Functions
 
 // Get cart from localStorage
@@ -25,7 +27,8 @@ function addToCart(product) {
       name: product.name,
       price: parseFloat(product.price),
       img: product.img,
-      quantity: 1
+      quantity: 1,
+      status: 'Processing' // default status for demo
     });
   }
   
@@ -56,6 +59,19 @@ function updateQuantity(itemId, newQuantity) {
   return cart;
 }
 
+// Update item status (new)
+function updateItemStatus(itemId, newStatus) {
+  const cart = getCart();
+  const item = cart.find(it => it.id === itemId);
+  if (item) {
+    item.status = newStatus;
+    saveCart(cart);
+    // refresh visible list
+    displayCartItems();
+  }
+  return cart;
+}
+
 // Get cart total
 function getCartTotal() {
   const cart = getCart();
@@ -82,6 +98,16 @@ function updateCartCount() {
   }
 }
 
+// Utility: get CSS class for status
+function statusClassFor(status) {
+  if (!status) return 'status-processing';
+  const s = status.toLowerCase();
+  if (s.includes('deliv')) return 'status-delivered';
+  if (s.includes('out')) return 'status-out';
+  if (s.includes('dispatch')) return 'status-dispatched';
+  return 'status-processing';
+}
+
 // Display cart items on cart page
 function displayCartItems() {
   const container = document.getElementById('cartItemsContainer');
@@ -98,32 +124,49 @@ function displayCartItems() {
         <a href="index.html">Continue Shopping</a>
       </div>
     `;
-    document.getElementById('checkoutBtn').disabled = true;
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    if (checkoutBtn) checkoutBtn.disabled = true;
     updateCartSummary();
     return;
   }
   
-  container.innerHTML = cart.map(item => `
+  container.innerHTML = cart.map(item => {
+    const status = item.status || 'Processing';
+    const sc = statusClassFor(status);
+    // inline styles kept minimal; prefer moving styles to style.css
+    return `
     <div class="cart-item" data-id="${item.id}">
       <div class="cart-item-img" style="background-image: url('${item.img}');"></div>
       <div class="cart-item-details">
         <div class="cart-item-name">${item.name}</div>
         <div class="cart-item-price">₹${item.price.toFixed(2)}</div>
-        <div class="cart-item-actions">
-          <div class="quantity-control">
+        <div class="cart-item-actions" style="display:flex; align-items:center; gap:12px;">
+          <div class="quantity-control" style="display:flex; align-items:center; gap:8px;">
             <button onclick="decreaseQuantity('${item.id}')">-</button>
             <span>${item.quantity}</span>
             <button onclick="increaseQuantity('${item.id}')">+</button>
           </div>
-          <button class="remove-btn" onclick="removeItem('${item.id}')">
+
+          <div style="display:flex; align-items:center; gap:8px;">
+
+                         
+            
+            <span class="status-badge ${sc}" style="padding:6px 10px; border-radius:12px; font-weight:700; color:#fff; background:#f0ad4e;">
+              ${status}
+            </span>
+          </div>
+
+          <button class="remove-btn" onclick="Cancel order('${item.id}')" style="margin-left:8px;">
             <i class="fa-solid fa-trash"></i> Remove
           </button>
         </div>
       </div>
     </div>
-  `).join('');
+  `;
+  }).join('');
   
-  document.getElementById('checkoutBtn').disabled = false;
+  const checkoutBtn = document.getElementById('checkoutBtn');
+  if (checkoutBtn) checkoutBtn.disabled = false;
   updateCartSummary();
 }
 
@@ -133,9 +176,12 @@ function updateCartSummary() {
   const tax = subtotal * 0.18; // 18% GST
   const total = subtotal + tax;
   
-  document.getElementById('subtotal').textContent = `₹${subtotal.toFixed(2)}`;
-  document.getElementById('tax').textContent = `₹${tax.toFixed(2)}`;
-  document.getElementById('total').textContent = `₹${total.toFixed(2)}`;
+  const subtotalEl = document.getElementById('subtotal');
+  const taxEl = document.getElementById('tax');
+  const totalEl = document.getElementById('total');
+  if (subtotalEl) subtotalEl.textContent = `₹${subtotal.toFixed(2)}`;
+  if (taxEl) taxEl.textContent = `₹${tax.toFixed(2)}`;
+  if (totalEl) totalEl.textContent = `₹${total.toFixed(2)}`;
 }
 
 // Increase quantity
@@ -202,6 +248,7 @@ document.addEventListener('DOMContentLoaded', function() {
 window.addToCart = addToCart;
 window.removeFromCart = removeFromCart;
 window.updateQuantity = updateQuantity;
+window.updateItemStatus = updateItemStatus;
 window.getCart = getCart;
 window.getCartTotal = getCartTotal;
 window.getCartCount = getCartCount;
@@ -210,4 +257,3 @@ window.displayCartItems = displayCartItems;
 window.increaseQuantity = increaseQuantity;
 window.decreaseQuantity = decreaseQuantity;
 window.removeItem = removeItem;
-
